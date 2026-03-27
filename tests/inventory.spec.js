@@ -22,3 +22,6 @@ test('sorting order for Price (low to high)', async ({ page }) => {
 });
 
 
+test('inventory page visual snapshot', async ({ page }) => {
+  await expect(page).toHaveScreenshot('inventory.png');
+});

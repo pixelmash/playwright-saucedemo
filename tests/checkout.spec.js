@@ -23,3 +23,18 @@ test('checkout form validation shows error', async ({ page }) => {
     await page.click('#continue');
     await expect(page.locator('.error-message-container')).toBeVisible();
 });
+
+test('full checkout', async ({ page }) => {
+    const inventoryPage = new InventoryPage(page);
+    await inventoryPage.addToCart('sauce-labs-bike-light');
+    await page.click('#shopping_cart_container');
+    await page.click('#checkout');
+    await page.fill('#first-name', 'Jack');
+    await page.fill('#last-name', 'Willson');
+    await page.fill('#postal-code', '50505');
+    await page.click('#continue');
+    await expect(page).toHaveURL(/checkout-step-two/);
+    await page.click('#finish');
+    await expect(page.locator('#checkout_complete_container')).toBeVisible();
+    
+});
