@@ -6,13 +6,14 @@ export const testData = {
         checkoutTwo: 'checkout-step-two',
         cart: 'cart'
     },
+
     users: {
-        standard: { username: 'standard_user', password: 'secret_sauce' },
-        locked_out: { username: 'locked_out_user', password: 'secret_sauce' },
-        problem: { username: 'problem_user', password: 'secret_sauce' },
-        performance_glitch: { username: 'performance_glitch_user', password: 'secret_sauce' },
-        error: { username: 'error_user', password: 'secret_sauce' },
-        visual: { username: 'visual_user', password: 'secret_sauce' }
+        standard: { username: process.env.STANDARD_USERNAME, password: process.env.STANDARD_PASSWORD },
+        locked_out: { username: process.env.LOCKED_OUT_USERNAME, password: process.env.LOCKED_OUT_PASSWORD },
+        problem: { username: process.env.PROBLEM_USERNAME, password: process.env.PROBLEM_PASSWORD },
+        performance_glitch: { username: process.env.PERFORMANCE_GLITCH_USERNAME, password: process.env.PERFORMANCE_GLITCH_PASSWORD },
+        error: { username: process.env.ERROR_USERNAME, password: process.env.ERROR_PASSWORD },
+        visual: { username: process.env.VISUAL_USERNAME, password: process.env.VISUAL_PASSWORD }
     },
     products: {
         backpack: { slug: 'sauce-labs-backpack', displayName: 'Sauce Labs Backpack' },
