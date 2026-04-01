@@ -20,3 +20,17 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run tests
         run: npx playwright test --ignore-snapshots
+        env:
+          env:
+          STANDARD_USERNAME: ${{ secrets.STANDARD_USERNAME }}
+          STANDARD_PASSWORD: ${{ secrets.STANDARD_PASSWORD }}
+          LOCKED_OUT_USERNAME: ${{ secrets.LOCKED_OUT_USERNAME }}
+          LOCKED_OUT_PASSWORD: ${{ secrets.LOCKED_OUT_PASSWORD }}
+          PROBLEM_USERNAME: ${{ secrets.PROBLEM_USERNAME }}
+          PROBLEM_PASSWORD: ${{ secrets.PROBLEM_PASSWORD }}
+          PERFORMANCE_GLITCH_USERNAME: ${{ secrets.PERFORMANCE_GLITCH_USERNAME }}
+          PERFORMANCE_GLITCH_PASSWORD: ${{ secrets.PERFORMANCE_GLITCH_PASSWORD }}
+          ERROR_USERNAME: ${{ secrets.ERROR_USERNAME }}
+          ERROR_PASSWORD: ${{ secrets.ERROR_PASSWORD }}
+          VISUAL_USERNAME: ${{ secrets.VISUAL_USERNAME }}
+          VISUAL_PASSWORD: ${{ secrets.VISUAL_PASSWORD }}
