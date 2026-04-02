@@ -3,38 +3,44 @@ import { LoginPage } from '../pages/LoginPage';
 import { testData } from '../testData';
 
 test.beforeEach(async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.login(testData.users.standard.username, testData.users.standard.password);
+    const loginPage = new LoginPage(page);
+    await loginPage.login(testData.users.standard.username, testData.users.standard.password);
 });
 
-test('number of items in the inventory', async ({ page }) => {
-    await expect(page.locator('.inventory_item')).toHaveCount(6);
+test.describe('Inventory sorting', () => {
+    test('default (asc) sort order of items in the inventory', async ({ page }) => {
+        let itemTitle = page.locator('.inventory_item_name').first();
+        await expect(itemTitle).toHaveText(testData.products.backpack.displayName);
+    });
+
+    test('desc sort order of items in the inventory', async ({ page }) => {
+        await page.selectOption('.product_sort_container', 'za');
+        let itemTitle = page.locator('.inventory_item_name').first();
+        await expect(itemTitle).toHaveText(testData.products.redTshirt.displayName);
+    });
+
+    test('sorting order for Price (low to high)', async ({ page }) => {
+        await page.selectOption('.product_sort_container', 'lohi');
+        let itemTitle = page.locator('.inventory_item_name').first();
+        await expect(itemTitle).toHaveText(testData.products.onesie.displayName);
+    });
+
+    test('sorting order for Price (high to low)', async ({ page }) => {
+        await page.selectOption('.product_sort_container', 'hilo');
+        let itemTitle = page.locator('.inventory_item_name').first();
+        await expect(itemTitle).toHaveText(testData.products.fleeceJacket.displayName);
+    });
 });
 
-test('default (asc) sort order of items in the inventory', async ({ page }) => {
-    let itemTitle = page.locator('.inventory_item_name').first();
-    await expect(itemTitle).toHaveText(testData.products.backpack.displayName);
+test.describe('Inventory layout', () => {
+    test('number of items in the inventory', async ({ page }) => {
+        await expect(page.locator('.inventory_item')).toHaveCount(6);
+    });
+
 });
 
-test('desc sort order of items in the inventory', async ({ page }) => {
-    await page.selectOption('.product_sort_container', 'za');
-    let itemTitle = page.locator('.inventory_item_name').first();
-    await expect(itemTitle).toHaveText(testData.products.redTshirt.displayName);
-});
-
-test('sorting order for Price (low to high)', async ({ page }) => {
-    await page.selectOption('.product_sort_container', 'lohi');
-    let itemTitle = page.locator('.inventory_item_name').first();
-    await expect(itemTitle).toHaveText(testData.products.onesie.displayName);
-});
-
-test('sorting order for Price (high to low)', async ({ page }) => {
-    await page.selectOption('.product_sort_container', 'hilo');
-    let itemTitle = page.locator('.inventory_item_name').first();
-    await expect(itemTitle).toHaveText(testData.products.fleeceJacket.displayName);
-});
-
-
-test('inventory page visual snapshot', async ({ page }) => {
-  await expect(page).toHaveScreenshot('inventory.png');
+test.describe('Inventory visual tests', () => {
+    test('inventory page visual snapshot', async ({ page }) => {
+        await expect(page).toHaveScreenshot('inventory.png');
+    });
 });

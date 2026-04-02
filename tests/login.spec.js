@@ -8,17 +8,18 @@ test('title check', async ({ page }) => {
   await expect(page).toHaveTitle(/Swag Labs/);
 });
 
+test.describe('Login tests', () => {
+  test('login navigates to inventory', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.login(testData.users.standard.username, testData.users.standard.password);
+    await expect(page).toHaveURL(new RegExp(testData.urls.inventory));
 
-test('login navigates to inventory', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.login(testData.users.standard.username, testData.users.standard.password);
-  await expect(page).toHaveURL(new RegExp(testData.urls.inventory));
+  });
+
+  test('failed login shows error message', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.login(testData.users.locked_out.username, testData.users.locked_out.password);
+    await expect(page.locator('.error-message-container')).toBeVisible();
+  });
 
 });
-
-test('failed login shows error message', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.login(testData.users.locked_out.username, testData.users.locked_out.password);
-  await expect(page.locator('.error-message-container')).toBeVisible();
-});
-
